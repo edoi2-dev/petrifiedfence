@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petrified Fence</title>
+<meta name="description" content="Wood-grain concrete fencing manufactured by Petrified. Non-combustible, storm-rated to 115 mph, and backed by a limited lifetime warranty. Serving Utah and Idaho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --surface: #0b0b0c; --raised: #16171a; --sunken: #050506;
+    --line: #26282c; --line-strong: #3a3d42;
+    --ink: #f3f5f7; --ink-muted: #9aa1a9; --ink-subtle: #767d86;
+    --gold: #5dac46; --gold-ink: #7cc866; --gold-hover: #6fbd57; --on-gold: #08160a; --gold-soft: #0f1f0d;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-entrance: cubic-bezier(0, 0, 0, 1);
+    --wrap: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--surface); color: var(--ink); font-family: var(--font-sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-sizing: auto; line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.005em; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: 24px; }
+  .gold { color: var(--gold); }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink); }
+  .sect { padding-block: clamp(64px, 9vw, 120px); }
+  .sect h2 { font-size: clamp(30px, 4.4vw, 48px); }
+  .lead { color: var(--ink-muted); font-size: clamp(16px, 2vw, 19px); max-width: 62ch; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.01em;
+         border-radius: 4px; border: 1px solid transparent; cursor: pointer; padding: 0 26px; height: 52px; font-size: 15px; white-space: nowrap;
+         transition: background .16s var(--ease-standard), border-color .16s var(--ease-standard), color .16s var(--ease-standard), transform .16s var(--ease-standard); }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-primary { background: var(--gold); border-color: var(--gold); color: var(--on-gold); }
+  .btn-primary:hover { background: var(--gold-hover); border-color: var(--gold-hover); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; border-color: rgba(243,245,247,.28); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-ink); }
+  .btn-sm { height: 42px; padding: 0 18px; font-size: 14px; }
+  .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid transparent; box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--gold); }
+  .btn .arw { transition: transform .18s var(--ease-standard); }
+  .btn:hover .arw { transform: translateX(3px); }
+
+  /* Top utility bar (phone above the nav) */
+  .topbar { background: var(--sunken); border-bottom: 1px solid var(--line); }
+  .topbar-in { display: flex; align-items: center; justify-content: space-between; height: 40px; }
+  .topbar-tag { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-subtle); }
+  .topbar-phone { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--ink-muted); }
+  .topbar-phone svg { width: 15px; height: 15px; }
+  .topbar-phone:hover { color: var(--gold-ink); }
+
+  /* Header / nav */
+  header.nav { position: sticky; top: 0; z-index: 50; background: rgba(11,11,12,0.72); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: background .3s ease, border-color .3s ease; }
+  header.nav.scrolled { background: rgba(11,11,12,0.94); border-bottom-color: var(--line); }
+  .nav-in { display: flex; align-items: center; gap: 28px; height: 76px; }
+  .brand img { height: 42px; width: auto; }
+  .nav-links { display: flex; gap: 26px; margin-left: auto; }
+  .nav-links a { position: relative; padding: 6px 0; font-size: 14px; font-weight: 500; color: var(--ink-muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-links a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px; background: var(--gold); }
+  .nav-cta { margin-left: 4px; }
+  .nav-toggle { display: none; margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--ink); align-items: center; justify-content: center; cursor: pointer; }
+  .nav-toggle:hover { border-color: var(--gold); color: var(--gold-ink); }
+  .nav-toggle svg { width: 22px; height: 22px; }
+  @media (max-width: 900px) { .nav-links { display: none; } .nav-cta { display: none; } .nav-toggle { display: inline-flex; } }
+  @media (max-width: 560px) { .topbar-tag { display: none; } .topbar-in { justify-content: flex-end; } }
+
+  /* Multi-page routing */
+  .page { display: none; }
+  .page.active { display: block; }
+  .phead { padding-block: clamp(52px, 8vw, 92px) 0; }
+  .phead h1 { font-size: clamp(38px, 6vw, 66px); margin-top: 14px; }
+  .phead .lead { margin-top: 18px; }
+
+  /* Hero */
+  .hero { position: relative; min-height: clamp(560px, 82vh, 760px); display: flex; align-items: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; filter: brightness(0.62) contrast(1.05) saturate(1.04); animation: heroZoom 1.5s var(--ease-standard) both; }
+  @keyframes heroZoom { from { transform: scale(1.06); } to { transform: scale(1); } }
+  .hero-scrim { position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(90deg, rgba(11,11,12,0.94) 0%, rgba(11,11,12,0.78) 34%, rgba(11,11,12,0.30) 66%, rgba(11,11,12,0.55) 100%),
+                linear-gradient(0deg, rgba(11,11,12,0.85) 0%, rgba(11,11,12,0) 45%); }
+  .hero .wrap { position: relative; z-index: 2; width: 100%; }
+  .hero-content { max-width: 680px; padding-block: 40px; }
+  .hero h1 { font-size: clamp(40px, 8vw, 80px); font-weight: 600; line-height: 1.0; margin: 18px 0 0; letter-spacing: -0.015em; }
+  .hero h1 .l { display: block; }
+  .hero .lead { margin-top: 22px; color: #ccd0d5; }
+  .hero-cta { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-trust { margin-top: 30px; display: flex; align-items: center; gap: 10px 22px; flex-wrap: wrap; color: var(--ink-muted); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
+  .hero-trust span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-trust b { color: var(--gold-ink); font-weight: 700; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: .7; }
+
+  /* Value props */
+  .vgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .vcard { background: var(--raised); border: 1px solid var(--line); border-radius: 8px; padding: 28px 24px; transition: border-color .2s ease, transform .2s ease; }
+  .vcard:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+  .vicon { width: 42px; height: 42px; color: var(--gold); margin-bottom: 16px; }
+  .vicon svg { width: 100%; height: 100%; }
+  .vcard h3 { font-family: var(--font-sans); font-size: 18px; font-weight: 700; letter-spacing: 0; }
+  .vcard p { color: var(--ink-muted); font-size: 14.5px; margin-top: 8px; }
+  @media (max-width: 860px) { .vgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .vgrid { grid-template-columns: 1fr; } }
+
+  /* Split / material / product rows */
+  .split { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .split .media { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/11; }
+  .split .media img { width: 100%; height: 100%; object-fit: cover; }
+  .badge-hold { position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(20px, 4vw, 44px); }
+  .badge-hold::before { content: ""; position: absolute; left: 50%; top: 50%; width: 74%; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(93,172,70,0.32) 0%, rgba(93,172,70,0.1) 46%, transparent 72%); filter: blur(28px); z-index: 0; pointer-events: none; }
+  .premium-badge { position: relative; z-index: 1; width: clamp(240px, 34vw, 380px); height: auto; mix-blend-mode: screen; }
+
+  .split h2 { font-size: clamp(28px, 4vw, 44px); }
+  .split p { color: var(--ink-muted); margin-top: 18px; }
+  .split .lead2 { color: var(--ink); font-size: 17px; }
+  @media (max-width: 820px) { .split { grid-template-columns: 1fr; } .split .order-media { order: -1; } }
+  .plist { margin-top: 22px; display: grid; gap: 10px; }
+  .plist li { list-style: none; display: flex; gap: 10px; align-items: center; color: var(--ink-muted); font-size: 15px; }
+  .plist svg { width: 18px; height: 18px; color: var(--gold); flex: none; }
+  .split .btn { margin-top: 26px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; }
+  .stat { background: var(--raised); border: 1px solid var(--line); border-radius: 10px; padding: 26px 22px; }
+  .stat b { display: block; font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 5vw, 46px); color: var(--gold-ink); line-height: 1; }
+  .stat span { display: block; margin-top: 10px; color: var(--ink-muted); font-size: 14px; }
+  @media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .step { border-top: 1px solid var(--line-strong); padding-top: 20px; }
+  .step-n { font-family: var(--font-display); font-weight: 600; font-size: 40px; color: var(--gold); line-height: 1; display: block; }
+  .step h3 { font-family: var(--font-sans); font-size: 18px; font-weight: 700; margin-top: 14px; letter-spacing: 0; }
+  .step p { color: var(--ink-muted); font-size: 14.5px; margin-top: 8px; }
+  @media (max-width: 780px) { .steps { grid-template-columns: 1fr 1fr; gap: 28px 24px; } }
+  @media (max-width: 440px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Finishes */
+  .fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .fcard { border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--raised); }
+  .fcard img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  .fcard .fmeta { padding: 14px 16px; }
+  .fcard .fmeta b { font-family: var(--font-display); font-weight: 600; font-size: 17px; }
+  .fcard .fmeta span { display: block; color: var(--ink-subtle); font-size: 12.5px; margin-top: 2px; }
+  @media (max-width: 760px) { .fgrid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Full gallery (masonry via columns) + lightbox */
+  .gal { columns: 3; column-gap: 16px; }
+  .gal img { width: 100%; margin-bottom: 16px; border-radius: 10px; border: 1px solid var(--line); cursor: zoom-in; transition: opacity .2s ease; }
+  .gal img:hover { opacity: .9; }
+  @media (max-width: 820px) { .gal { columns: 2; } }
+  @media (max-width: 520px) { .gal { columns: 1; } }
+  .lb { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; background: rgba(5,5,6,0.95); }
+  .lb.open { display: flex; }
+  .lb img { max-width: 92vw; max-height: 84vh; border-radius: 8px; }
+  .lb-btn { position: absolute; background: rgba(22,23,26,0.7); border: 1px solid var(--line-strong); color: var(--ink); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .lb-btn:hover { border-color: var(--gold); color: var(--gold-ink); }
+  .lb-btn svg { width: 20px; height: 20px; }
+  .lb-close { top: 20px; right: 20px; }
+  .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+
+  /* Testimonials */
+  .twrap { background: var(--sunken); border-block: 1px solid var(--line); }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+  .tcard { background: var(--raised); border: 1px solid var(--line); border-radius: 8px; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .stars { display: flex; gap: 3px; color: var(--gold); }
+  .stars svg { width: 16px; height: 16px; }
+  .tcard blockquote { margin: 0; font-size: 15.5px; color: var(--ink); line-height: 1.6; }
+  .tcard .who { margin-top: auto; font-size: 13px; color: var(--ink-muted); }
+  .tcard .who b { color: var(--ink); font-weight: 600; display: block; font-size: 14px; }
+  @media (max-width: 820px) { .tgrid { grid-template-columns: 1fr; } }
+
+  /* Warranty band */
+  .warr { position: relative; display: flex; align-items: center; gap: clamp(28px, 5vw, 60px); overflow: hidden;
+          background: radial-gradient(120% 140% at 12% 20%, #1b1d22 0%, #17181b 42%, #0b0b0c 100%);
+          border: 1px solid var(--line-strong); border-radius: 16px; padding: clamp(32px, 4.5vw, 56px); }
+  .warr::before { content: ""; position: absolute; left: -6%; top: 50%; transform: translateY(-50%); width: 340px; height: 340px; border-radius: 50%;
+                  background: radial-gradient(circle, rgba(93,172,70,0.22), transparent 68%); pointer-events: none; }
+  .warr .seal { position: relative; flex: none; width: clamp(160px, 20vw, 220px); color: var(--gold); filter: drop-shadow(0 0 22px rgba(93,172,70,0.28)); }
+  .warr .seal img { width: 100%; height: auto; display: block; }
+  .warr-body { position: relative; }
+  .warr-body h2 { font-size: clamp(30px, 4.2vw, 48px); margin-top: 12px; }
+  .warr-body > p { color: var(--ink-muted); margin-top: 14px; max-width: 52ch; font-size: 16px; }
+  .warr-points { display: flex; gap: 10px 24px; flex-wrap: wrap; margin-top: 22px; }
+  .warr-points li { list-style: none; display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 14px; font-weight: 500; }
+  .warr-points svg { width: 18px; height: 18px; color: var(--gold); flex: none; }
+  .warr-body .btn { margin-top: 26px; }
+  @media (max-width: 640px) { .warr { flex-direction: column; text-align: center; } .warr-points { justify-content: center; } }
+
+  /* Work / horizontal gallery */
+  .work-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .work-head h2 { font-size: clamp(34px, 5vw, 60px); margin-top: 12px; }
+  .work-intro { max-width: 440px; }
+  .work-intro p { color: var(--ink-muted); }
+  .work-nav { display: flex; gap: 12px; margin-top: 20px; }
+  .rbtn { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: border-color .18s var(--ease-standard), color .18s var(--ease-standard); }
+  .rbtn:hover { border-color: var(--gold); color: var(--gold-ink); }
+  .rbtn:disabled { opacity: .32; cursor: default; }
+  .rbtn svg { width: 20px; height: 20px; }
+  .work-scroller { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; margin-top: 40px; padding-inline: max(24px, calc((100% - 900px) / 2)); scrollbar-width: none; -ms-overflow-style: none; }
+  .work-scroller::-webkit-scrollbar { display: none; }
+  .work-slide { flex: 0 0 min(900px, 84vw); scroll-snap-align: center; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; background: var(--sunken); }
+  .work-slide img { width: 100%; height: 100%; object-fit: cover; }
+  .work-foot { display: flex; align-items: center; gap: 24px; margin-top: 30px; }
+  .work-count { font-size: 13px; color: var(--ink-muted); font-variant-numeric: tabular-nums; letter-spacing: 0.12em; }
+  .work-count b { color: var(--ink); font-weight: 600; }
+  .work-bar { flex: 1; height: 2px; background: var(--line); position: relative; border-radius: 2px; }
+  .work-bar-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--gold); border-radius: 2px; transition: width .3s var(--ease-standard); }
+
+  /* Comparison */
+  .ctable { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+  .ccol { background: var(--raised); border: 1px solid var(--line); border-radius: 10px; padding: 30px 24px; }
+  .ccol.best { border-color: var(--gold); background: linear-gradient(180deg, var(--gold-soft), var(--raised)); position: relative; box-shadow: 0 16px 40px -18px rgba(0,0,0,.7); }
+  .best-tag { position: absolute; top: -11px; left: 24px; background: var(--gold); color: var(--on-gold); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 11px; border-radius: 999px; }
+  .ccol h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; margin-bottom: 18px; }
+  .ccol ul { display: grid; gap: 12px; }
+  .ccol li { list-style: none; display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--ink-muted); }
+  .ccol li svg { width: 18px; height: 18px; flex: none; margin-top: 1px; }
+  .ccol li.yes { color: var(--ink); }
+  .ccol li.yes svg { color: var(--gold); }
+  .ccol li.no svg { color: var(--ink-subtle); }
+  @media (max-width: 760px) { .ctable { grid-template-columns: 1fr; } }
+
+  /* Closing CTA band */
+  .cta-band { position: relative; overflow: hidden; border-top: 1px solid var(--line); }
+  .cta-band .bg { position: absolute; inset: 0; z-index: 0; }
+  .cta-band .bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.42) saturate(1.05) sepia(0.1); }
+  .cta-band .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,12,0.82), rgba(11,11,12,0.93)); }
+  .cta-wordmark .bg { display: flex; align-items: center; justify-content: center; }
+  .cta-wordmark .bg img { width: min(720px, 86%); height: auto; object-fit: contain; opacity: 0.1; filter: none; }
+  .cta-wordmark .bg::after { display: none; }
+  .cta-band .wrap { position: relative; z-index: 1; text-align: center; max-width: 760px; }
+  .cta-band .lead { margin: 16px auto 0; }
+
+  /* Contact */
+  .qgrid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: start; }
+  .callbox { display: inline-flex; flex-direction: column; gap: 4px; }
+  .callbox span { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-subtle); font-weight: 600; }
+  .callbox a { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.6vw, 34px); color: var(--ink); }
+  .callbox a:hover { color: var(--gold-ink); }
+  .qcheck { margin-top: 24px; display: grid; gap: 10px; }
+  .qcheck li { list-style: none; display: flex; gap: 10px; align-items: center; color: var(--ink-muted); font-size: 14.5px; }
+  .qcheck svg { width: 18px; height: 18px; color: var(--gold); flex: none; }
+  ul { margin: 0; padding: 0; }
+  form.card { background: var(--raised); border: 1px solid var(--line-strong); border-radius: 12px; padding: clamp(24px, 3vw, 34px); box-shadow: 0 20px 48px -20px rgba(0,0,0,.7); }
+  .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } .qgrid { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) { .qgrid { grid-template-columns: 1fr; } }
+  label { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); }
+  label .req { color: var(--gold); }
+  input, select, textarea { font-family: var(--font-sans); font-size: 15px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 5px; padding: 12px 14px; width: 100%; }
+  input::placeholder, textarea::placeholder { color: var(--ink-subtle); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+  textarea { resize: vertical; min-height: 92px; }
+  .err { border-color: #db8b7b !important; }
+  .errmsg { color: #db8b7b; font-size: 12.5px; display: none; }
+  .errmsg.show { display: block; }
+  form .btn { width: 100%; margin-top: 6px; }
+  .finehint { font-size: 12px; color: var(--ink-subtle); margin-top: 12px; text-align: center; }
+  .success { display: none; text-align: center; padding: 20px 8px; }
+  .success.show { display: block; }
+  .success .ok { width: 56px; height: 56px; color: var(--gold); margin: 0 auto 14px; }
+  .success h3 { font-family: var(--font-display); font-size: 24px; }
+  .success p { color: var(--ink-muted); margin-top: 8px; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding-block: 52px 40px; }
+  .fcols { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; }
+  footer .logo img { height: 34px; }
+  footer .tag { color: var(--ink-muted); font-size: 14px; margin-top: 14px; max-width: 34ch; }
+  .fnav { display: flex; gap: 40px; flex-wrap: wrap; }
+  .fnav div h4 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-subtle); margin: 0 0 12px; font-family: var(--font-sans); font-weight: 700; }
+  .fnav a { display: block; color: var(--ink-muted); font-size: 14px; margin-bottom: 8px; }
+  .fnav a:hover { color: var(--gold-ink); }
+  .fbot { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--ink-subtle); font-size: 13px; }
+
+  /* Mobile sticky call bar */
+  .mobar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: none; gap: 10px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+           background: rgba(11,11,12,0.95); backdrop-filter: blur(8px); border-top: 1px solid var(--line); }
+  .mobar .btn { flex: 1; height: 48px; }
+  @media (max-width: 560px) { .mobar { display: flex; } body { padding-bottom: 76px; } }
+
+  /* FAQ */
+  .faq { max-width: 820px; margin-top: 40px; }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--font-display); font-weight: 600; font-size: clamp(17px, 2.4vw, 20px); color: var(--ink); }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--gold-ink); }
+  .fq-ico { flex: none; width: 22px; height: 22px; color: var(--gold); transition: transform .2s var(--ease-standard); }
+  .faq-item[open] .fq-ico { transform: rotate(45deg); }
+  .faq-item .fq-a { padding: 0 0 22px; color: var(--ink-muted); max-width: 68ch; }
+  .faq-item .fq-a a { color: var(--gold-ink); }
+
+  /* Mobile menu drawer */
+  .mm-backdrop { position: fixed; inset: 0; z-index: 65; background: rgba(5,5,6,0.6); opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility .28s ease; }
+  .mm-backdrop.open { opacity: 1; visibility: visible; }
+  .mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: min(330px, 84vw); z-index: 70; background: var(--raised); border-left: 1px solid var(--line);
+    transform: translateX(100%); transition: transform .3s var(--ease-standard); display: flex; flex-direction: column;
+    padding: 18px 24px calc(24px + env(safe-area-inset-bottom,0px)); padding-top: calc(16px + env(safe-area-inset-top,0px)); overflow-y: auto; }
+  .mobile-menu.open { transform: translateX(0); }
+  .mm-top { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+  .mm-links { display: flex; flex-direction: column; }
+  .mm-links a { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--ink); padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .mm-links a:hover { color: var(--gold-ink); }
+  .mm-actions { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .mm-actions .btn { width: 100%; }
+  .mm-phone { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border: 1px solid var(--line-strong); border-radius: 4px; font-weight: 600; color: var(--ink); }
+  .mm-phone svg { width: 16px; height: 16px; }
+  .mm-phone:hover { border-color: var(--gold); color: var(--gold-ink); }
+  .mm-extra { margin-top: 18px; font-size: 13px; color: var(--ink-subtle); }
+  .mm-extra a { color: var(--gold-ink); }
+  @media (min-width: 901px) { .mobile-menu, .mm-backdrop { display: none; } }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity .7s var(--ease-entrance), transform .7s var(--ease-entrance); }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    .reveal, .reveal.in { opacity: 1 !important; transform: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="topbar-tag">The beauty of wood. The strength of stone.</span>
+    <a class="topbar-phone" href="tel:+13856006240" aria-label="Call 3 8 5, 6 0 0, 6 2 4 0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M6 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2z"/></svg>
+      (385) 600-6240
+    </a>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#/" aria-label="Petrified Fence home"><img src="assets/logo-green.svg" alt="Petrified Fence"></a>
+    <nav class="nav-links">
+      <a href="#/solutions" data-nav="/solutions">Solutions</a>
+      <a href="#/gallery" data-nav="/gallery">Gallery</a>
+      <a href="#/about" data-nav="/about">About</a>
+      <a href="#/faq" data-nav="/faq">FAQ</a>
+      <a href="#/contact" data-nav="/contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary btn-sm nav-cta" href="#/contact">Free quote</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+  </div>
+</header>
+
+<div class="mm-backdrop" id="mmBackdrop"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-label="Menu">
+  <div class="mm-top"><button class="nav-toggle" id="mmClose" aria-label="Close menu" style="display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button></div>
+  <nav class="mm-links">
+    <a href="#/solutions">Solutions</a>
+    <a href="#/gallery">Gallery</a>
+    <a href="#/about">About</a>
+    <a href="#/faq">FAQ</a>
+    <a href="#/contact">Contact</a>
+  </nav>
+  <div class="mm-actions">
+    <a class="btn btn-primary" href="#/contact">Get a free quote</a>
+    <a class="mm-phone" href="tel:+13856006240"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M6 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2z"/></svg> (385) 600-6240</a>
+  </div>
+  <p class="mm-extra">For installers &amp; distributors: <a href="#/distributor">Partner with Petrified</a>.</p>
+</aside>
+
+<main id="app">
+
+<!-- ===================== HOME ===================== -->
+<div class="page active" data-route="/">
+<section class="hero">
+  <div class="hero-bg"><img src="assets/life2.webp" alt="Modern desert patio enclosed by a weathered-finish concrete privacy fence"></div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <p class="eyebrow">Premium concrete fencing</p>
+      <h1><span class="l">Wood Rots.</span><span class="l">Vinyl Warps.</span><span class="l gold">Concrete Lasts.</span></h1>
+      <p class="lead">The timeless look of real wood, cast in solid concrete that won't rot, warp, or burn. Manufactured by Petrified, installed by our team or a trusted local partner.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+13856006240">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M6 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2z"/></svg>
+          (385) 600-6240
+        </a>
+      </div>
+      <div class="hero-trust">
+        <span><b>0%</b> combustible</span><span class="dot"></span>
+        <span><b>115 mph</b> wind rated</span><span class="dot"></span>
+        <span><b>Lifetime</b> warranty</span><span class="dot"></span>
+        <span>Free on-site estimates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">Why it lasts</p>
+      <h2 style="margin-top:14px">The beauty of wood, without a single weakness of wood.</h2>
+    </div>
+    <div class="vgrid" style="margin-top:44px">
+      <div class="vcard reveal">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 3c1 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.7 1.2 2.5 2 2.5 0-2.5.3-4.5 1-7z"/></svg></div>
+        <h3>Non-combustible</h3><p>Solid concrete does not burn, a strong choice where wildfire is a concern.</p>
+      </div>
+      <div class="vcard reveal">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M4 9h10a2.5 2.5 0 1 0-2.5-2.5"/><path d="M4 13h13a2.5 2.5 0 1 1-2.5 2.5"/><line x1="4" y1="17" x2="11" y2="17"/></svg></div>
+        <h3>Storm-rated</h3><p>Engineered to stand through 115 mph wind with proper installation.</p>
+      </div>
+      <div class="vcard reveal">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg></div>
+        <h3>Won't rot or warp</h3><p>Concrete won't rot or warp like wood, so it holds its look for years.</p>
+      </div>
+      <div class="vcard reveal">
+        <div class="vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5V6z"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg></div>
+        <h3>Lifetime warranty</h3><p>Built to outlast the home it protects, and guaranteed in writing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" style="background:var(--sunken); border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">The difference</p>
+      <h2 style="margin-top:14px">Wood rots. Vinyl warps. Petrified lasts.</h2>
+    </div>
+    <div class="ctable reveal">
+      <div class="ccol">
+        <h3>Wood</h3>
+        <ul>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Rots, splits, and warps</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Burns</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Needs staining every year</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Needs regular upkeep and replacement</li>
+        </ul>
+      </div>
+      <div class="ccol">
+        <h3>Vinyl</h3>
+        <ul>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Cracks and yellows</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Warps and sags in the heat</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Blows down in storms</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg> Looks like plastic</li>
+        </ul>
+      </div>
+      <div class="ccol best">
+        <div class="best-tag">Petrified</div>
+        <h3>Concrete</h3>
+        <ul>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Won't rot or warp</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Non-combustible</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Rated to 115 mph wind</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Limited lifetime warranty</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow">Stamped &amp; stained concrete</p>
+        <h2 style="margin-top:14px">It's concrete. <span class="gold">Everyone thinks it's wood.</span></h2>
+        <p class="lead2">Every board, grain line, and knot is stamped into solid concrete, then hand-stained. From the street it reads as a premium wood fence. Up close, it's solid stone.</p>
+        <p>You get the warmth and character of wood with far less upkeep. No staining every summer, no leaning posts, no boards to replace after the next storm. A periodic reseal keeps it looking its best and keeps your warranty in force.</p>
+        <div style="margin-top:26px"><a class="btn btn-ghost" href="#/solutions">Explore solutions</a></div>
+      </div>
+      <div class="badge-hold order-media reveal"><img class="premium-badge" src="assets/premium-wordmark.webp" alt="Premium Concrete Fencing badge"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" style="background:var(--sunken); border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">Finishes</p>
+      <h2 style="margin-top:14px">Four wood-tone finishes.</h2>
+      <p class="lead" style="margin-top:16px">From warm red-browns to weathered grey. Choose the look, keep the strength.</p>
+    </div>
+    <div class="fgrid" style="margin-top:40px">
+      <div class="fcard reveal"><img src="assets/finish-mahogany.jpg" alt="Mahogany finish"><div class="fmeta"><b>Mahogany</b><span>Deep, rich red-brown</span></div></div>
+      <div class="fcard reveal"><img src="assets/finish-redwood.jpg" alt="Redwood finish"><div class="fmeta"><b>Redwood</b><span>Warm russet</span></div></div>
+      <div class="fcard reveal"><img src="assets/finish-hickory.jpg" alt="Hickory finish"><div class="fmeta"><b>Hickory</b><span>Classic amber timber</span></div></div>
+      <div class="fcard reveal"><img src="assets/finish-driftwood.jpg" alt="Driftwood finish"><div class="fmeta"><b>Driftwood</b><span>Weathered grey</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">How it works</p>
+      <h2 style="margin-top:14px">From quote to forever, in four steps.</h2>
+    </div>
+    <div class="steps" style="margin-top:44px">
+      <div class="step reveal"><span class="step-n">01</span><h3>Tell us about your project</h3><p>Share your location, approximate fence length, and the style you have in mind.</p></div>
+      <div class="step reveal"><span class="step-n">02</span><h3>Get a tailored quote</h3><p>We measure your property where possible, talk through finishes, and prepare your quote.</p></div>
+      <div class="step reveal"><span class="step-n">03</span><h3>Bring it to life</h3><p>Petrified manufactures your fence and coordinates installation with our crew or a trusted local partner.</p></div>
+      <div class="step reveal"><span class="step-n">04</span><h3>Backed for life</h3><p>Your finished fence is covered by our written limited lifetime warranty, subject to its terms.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect work" id="projects">
+  <div class="wrap">
+    <div class="work-head reveal">
+      <div>
+        <p class="eyebrow">Our work</p>
+        <h2>Real Fences. Real Results.</h2>
+      </div>
+      <div class="work-intro">
+        <p>See how homeowners and businesses choose Petrified Fence to elevate their properties with long-lasting beauty.</p>
+        <div class="work-nav">
+          <button class="rbtn" id="workPrev" aria-label="Previous project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="15 6 9 12 15 18"/></svg></button>
+          <button class="rbtn" id="workNext" aria-label="Next project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="9 6 15 12 9 18"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="work-scroller" id="workScroller">
+    <div class="work-slide"><img src="assets/life3.webp" alt="Wood-grain concrete privacy fence at sunset with mountain views" loading="lazy"></div>
+    <div class="work-slide"><img src="assets/life7.webp" alt="Weathered-finish concrete fence beside a modern home" loading="lazy"></div>
+    <div class="work-slide"><img src="assets/life6.webp" alt="Concrete privacy fence with a rock border and lawn" loading="lazy" style="object-position:center 62%"></div>
+    <div class="work-slide"><img src="assets/life4.webp" alt="Close-up of the wood-grain texture cast into the concrete" loading="lazy" style="object-position:center 50%"></div>
+    <div class="work-slide"><img src="assets/life5.webp" alt="Concrete rail fence framing a pasture at sunset" loading="lazy" style="object-position:center 55%"></div>
+  </div>
+  <div class="wrap">
+    <div class="work-foot reveal">
+      <span class="work-count"><b id="workIdx">01</b> / <span id="workTot">05</span></span>
+      <div class="work-bar"><div class="work-bar-fill" id="workBar" style="width:20%"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect twrap">
+  <div class="wrap">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">Reviews</p>
+      <h2 style="margin-top:14px">Homeowners don't look back.</h2>
+    </div>
+    <div class="tgrid">
+      <figure class="tcard reveal">
+        <div class="stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg>
+        </div>
+        <blockquote>"Five years in and it still looks brand new. It has taken everything Utah weather can throw at it with zero issues. Neighbors ask about it constantly."</blockquote>
+        <figcaption class="who"><b>David L.</b>Salt Lake City, UT</figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <div class="stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg>
+        </div>
+        <blockquote>"The craftsmanship is impeccable. It gives our home real security and real style, and the crew was professional start to finish."</blockquote>
+        <figcaption class="who"><b>John S.</b>Denver, CO</figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <div class="stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 3 14.9 9 21 9.9 16.5 14.3 17.6 20.5 12 17.5 6.4 20.5 7.5 14.3 3 9.9 9.1 9"/></svg>
+        </div>
+        <blockquote>"I was hesitant about concrete until I saw the designs. They matched our vision exactly and the result is spectacular. Highly recommend."</blockquote>
+        <figcaption class="who"><b>Michael H.</b>Los Angeles, CA</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="warr reveal">
+      <div class="seal" aria-hidden="true"><img class="seal-badge" src="assets/warranty-badge.webp" alt="Limited lifetime warranty"></div>
+      <div class="warr-body">
+        <p class="eyebrow">The guarantee</p>
+        <h2>Backed for life. In writing.</h2>
+        <p>Most fences come with a countdown. Ours comes with a promise: a written limited lifetime warranty. To keep it in force, your fence is resealed by Petrified or an approved installation partner every two years.</p>
+        <ul class="warr-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Won't rot or warp</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Non-combustible and storm-rated</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Limited lifetime warranty</li>
+        </ul>
+        <a class="btn btn-primary" href="#/contact">Claim your warranty quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect cta-band cta-wordmark">
+  <div class="bg" aria-hidden="true"><img src="assets/wordmark-beauty.webp" alt=""></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Build it once</p>
+    <h2 style="font-size:clamp(32px,5vw,54px); margin-top:14px">The last fence you'll ever buy.</h2>
+    <p class="lead">Get a free, no-pressure estimate, or call and talk to a real person today.</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:30px">
+      <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+13856006240">(385) 600-6240</a>
+    </div>
+  </div>
+</section>
+</div><!-- /home -->
+
+<!-- ===================== PRODUCTS ===================== -->
+<div class="page" data-route="/solutions">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">Solutions</p>
+  <h1>Three ways to build in stone.</h1>
+  <p class="lead">Every Petrified fence is solid concrete, stamped and stained to look like real wood. Choose the style that fits your property. Fences are priced by the linear foot, based on style, corners, and freight.</p>
+</div></section>
+
+<section class="sect"><div class="wrap">
+  <div class="split reveal" style="margin-bottom:clamp(48px,7vw,88px)">
+    <div>
+      <p class="eyebrow">Privacy</p>
+      <h2>Concrete Privacy Fence</h2>
+      <p class="lead2">Our flagship. Full-height solid panels with a true timber grain, for complete privacy that never rots, warps, or burns.</p>
+      <ul class="plist">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Full privacy, 6 to 8 ft tall</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Rated to 115 mph wind</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Non-combustible concrete</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Available in all four finishes</li>
+      </ul>
+      <p style="margin-top:18px; font-weight:600; color:var(--ink)">Typically <span class="gold">$88 to $104</span> per linear foot, installed.</p>
+      <a class="btn btn-primary" href="#/contact">Get a quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    </div>
+    <div class="media order-media"><img src="assets/hero.jpg" alt="Concrete privacy fence with a wood-grain finish"></div>
+  </div>
+
+  <div class="split reveal" style="margin-bottom:clamp(48px,7vw,88px)">
+    <div class="media"><img src="assets/gallery-5.jpg" alt="Concrete fence bordering a landscaped yard"></div>
+    <div>
+      <p class="eyebrow">Best of both</p>
+      <h2>Hybrid Fence</h2>
+      <p class="lead2">Concrete posts and rails paired with infill panels, for the strength and looks of stone at a friendlier price.</p>
+      <ul class="plist">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Concrete posts that never rot</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Custom heights and layouts</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> A cost-effective step up from wood</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Wood-grain finish throughout</li>
+      </ul>
+      <a class="btn btn-primary" href="#/contact">Get a quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    </div>
+  </div>
+
+  <div class="split reveal">
+    <div>
+      <p class="eyebrow">Classic</p>
+      <h2>Rail Fence</h2>
+      <p class="lead2">The timeless post-and-rail look, cast in concrete. Frame acreage and mark property lines with a fence that never needs replacing.</p>
+      <ul class="plist">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Ranch and estate styling</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Defines boundaries and acreage</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Low maintenance, reseal every 2 years</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Authentic wood-grain texture</li>
+      </ul>
+      <a class="btn btn-primary" href="#/contact">Get a quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+    </div>
+    <div class="media order-media"><img src="assets/life5.webp" alt="Concrete rail fence framing a pasture with a horse at sunset"></div>
+  </div>
+</div></section>
+
+<section class="sect" style="background:var(--sunken); border-block:1px solid var(--line)"><div class="wrap">
+  <div class="reveal" style="max-width:60ch">
+    <p class="eyebrow">Finishes</p>
+    <h2 style="margin-top:14px">Four wood-tone finishes.</h2>
+    <p class="lead" style="margin-top:16px">Every product is available in each finish, from warm red-browns to weathered grey.</p>
+  </div>
+  <div class="fgrid" style="margin-top:40px">
+    <div class="fcard reveal"><img src="assets/finish-mahogany.jpg" alt="Mahogany finish"><div class="fmeta"><b>Mahogany</b><span>Deep, rich red-brown</span></div></div>
+    <div class="fcard reveal"><img src="assets/finish-redwood.jpg" alt="Redwood finish"><div class="fmeta"><b>Redwood</b><span>Warm russet</span></div></div>
+    <div class="fcard reveal"><img src="assets/finish-hickory.jpg" alt="Hickory finish"><div class="fmeta"><b>Hickory</b><span>Classic amber timber</span></div></div>
+    <div class="fcard reveal"><img src="assets/finish-driftwood.jpg" alt="Driftwood finish"><div class="fmeta"><b>Driftwood</b><span>Weathered grey</span></div></div>
+  </div>
+</div></section>
+
+<section class="sect"><div class="wrap">
+  <div class="split reveal">
+    <div>
+      <p class="eyebrow">At any scale</p>
+      <h2>Beyond the backyard.</h2>
+      <p class="lead2">Petrified manufactures fencing for residential, community, commercial, and other qualified projects, and works with professional installers to bring them to life. Master-planned perimeters, commercial frontage, and sound barriers, all in the same non-combustible concrete.</p>
+      <div style="margin-top:26px"><a class="btn btn-ghost" href="#/contact">Ask about large-scale projects</a></div>
+    </div>
+    <div class="media order-media"><img src="assets/gallery-3.jpg" alt="Concrete fencing running along a large property"></div>
+  </div>
+</div></section>
+
+<section class="sect cta-band">
+  <div class="bg" aria-hidden="true"><img src="assets/detail.jpg" alt=""></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Build it once</p>
+    <h2 style="font-size:clamp(32px,5vw,54px); margin-top:14px">Find the right fence for your property.</h2>
+    <p class="lead">Tell us about your project and we'll help you choose. Free on-site estimates, no pressure.</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:30px">
+      <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+13856006240">(385) 600-6240</a>
+    </div>
+  </div>
+</section>
+</div><!-- /products -->
+
+<!-- ===================== GALLERY ===================== -->
+<div class="page" data-route="/gallery">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">Gallery</p>
+  <h1>Our work, up close.</h1>
+  <p class="lead">Real installations across residential, community, and commercial projects. Tap any photo to view it larger.</p>
+</div></section>
+
+<section class="sect" style="padding-top:clamp(28px,4vw,44px)"><div class="wrap">
+  <div class="gal reveal">
+    <img data-i="0" src="assets/life2.webp" alt="Modern patio enclosed by a weathered concrete privacy fence" loading="lazy">
+    <img data-i="1" src="assets/life4.webp" alt="Close-up of wood-grain texture cast into concrete" loading="lazy">
+    <img data-i="2" src="assets/life3.webp" alt="Wood-grain concrete fence at sunset with mountain views" loading="lazy">
+    <img data-i="3" src="assets/life6.webp" alt="Concrete privacy fence with a rock border and lawn" loading="lazy">
+    <img data-i="4" src="assets/life7.webp" alt="Weathered-finish concrete fence beside a modern home" loading="lazy">
+    <img data-i="5" src="assets/life5.webp" alt="Concrete rail fence framing a pasture at sunset" loading="lazy">
+  </div>
+</div></section>
+
+<section class="sect cta-band">
+  <div class="bg" aria-hidden="true"><img src="assets/detail.jpg" alt=""></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Your yard next</p>
+    <h2 style="font-size:clamp(32px,5vw,54px); margin-top:14px">Picture it on your property.</h2>
+    <p class="lead">Get a free, no-pressure estimate, or call and talk to a real person today.</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:30px">
+      <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+13856006240">(385) 600-6240</a>
+    </div>
+  </div>
+</section>
+</div><!-- /gallery -->
+
+<!-- ===================== ABOUT ===================== -->
+<div class="page" data-route="/about">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">About</p>
+  <h1>Made in Utah. Serving Utah and Idaho.</h1>
+  <p class="lead">Petrified Fence manufactures wood-grain concrete fencing and works with established professionals to bring it to properties across Utah and Idaho. We're building installer and distributor relationships in surrounding states.</p>
+</div></section>
+
+<section class="sect"><div class="wrap">
+  <div class="split reveal">
+    <div>
+      <p class="eyebrow">Our craft</p>
+      <h2>Real grain. Real concrete.</h2>
+      <p class="lead2">Every panel starts as solid concrete. We stamp it with authentic wood-grain textures pulled from real timber, then hand-stain it in the finish you choose.</p>
+      <p>The result looks and feels like a premium wood fence, but it won't rot, warp, or burn. Because it's concrete, no trees are cut. A reseal by our team or an approved partner every two years keeps it beautiful and keeps your limited lifetime warranty in force.</p>
+    </div>
+    <div class="media order-media"><img src="assets/detail.jpg" alt="Concrete stamped and stained to look like wood grain"></div>
+  </div>
+</div></section>
+
+<section class="sect" style="background:var(--sunken); border-block:1px solid var(--line)"><div class="wrap">
+  <div class="reveal" style="max-width:60ch"><p class="eyebrow">By the numbers</p><h2 style="margin-top:14px">Proof, not promises.</h2></div>
+  <div class="stats reveal">
+    <div class="stat"><b>20+</b><span>Years of experience</span></div>
+    <div class="stat"><b>115</b><span>MPH wind rating</span></div>
+    <div class="stat"><b>0%</b><span>Combustible material</span></div>
+    <div class="stat"><b>Life</b><span>Limited lifetime warranty</span></div>
+  </div>
+</div></section>
+
+<section class="sect"><div class="wrap">
+  <div class="split reveal">
+    <div class="media"><img src="assets/gallery-4.jpg" alt="Concrete fencing on a property at dusk"></div>
+    <div>
+      <p class="eyebrow">Where we build</p>
+      <h2>Rooted in Utah, growing outward.</h2>
+      <p class="lead2">We serve homeowners and communities across Utah and Idaho, and we're building partner relationships in surrounding states.</p>
+      <p>Residential, community, commercial, and government. If it needs to stand up and stay beautiful, we build it.</p>
+      <div style="margin-top:26px"><a class="btn btn-primary" href="#/contact">Start your project <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sect cta-band">
+  <div class="bg" aria-hidden="true"><img src="assets/detail.jpg" alt=""></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Build it once</p>
+    <h2 style="font-size:clamp(32px,5vw,54px); margin-top:14px">Let's build something that lasts.</h2>
+    <p class="lead">Get a free, no-pressure estimate, or call and talk to a real person today.</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:30px">
+      <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+13856006240">(385) 600-6240</a>
+    </div>
+  </div>
+</section>
+</div><!-- /about -->
+
+<!-- ===================== CONTACT ===================== -->
+<div class="page" data-route="/contact">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">Contact</p>
+  <h1>Get your free quote.</h1>
+  <p class="lead">Tell us about your project, or call and talk to a real person today.</p>
+</div></section>
+
+<section class="sect" style="padding-top:clamp(28px,4vw,44px)"><div class="wrap">
+  <div class="qgrid">
+    <div class="pitch reveal">
+      <div class="callbox">
+        <span>Call us</span>
+        <a href="tel:+13856006240">(385) 600-6240</a>
+      </div>
+      <p style="margin-top:20px; font-size:15px; color:var(--ink-muted)">Or email <a class="gold" href="mailto:landen@petrifiedfence.com">landen@petrifiedfence.com</a></p>
+      <p style="margin-top:8px; font-size:14.5px; color:var(--ink-muted)">Serving projects throughout Utah and Idaho.</p>
+      <ul class="qcheck">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Free on-site measurement and quote</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> A response within one business day</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Residential, community, and commercial</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Installation coordinated for your project</li>
+      </ul>
+      <p style="margin-top:24px; font-size:14px; color:var(--ink-subtle)">Are you an installer, landscaper, or distributor? <a class="gold" href="#/distributor">Partner with Petrified</a>.</p>
+    </div>
+    <form class="card reveal qform" novalidate>
+      <div class="form-fields">
+        <div class="row2">
+          <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required><div class="errmsg" data-for="name">Please enter your name.</div></div>
+          <div class="field"><label for="phone">Phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(385) 000-0000" required><div class="errmsg" data-for="phone">Please enter a phone number.</div></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com"><div class="errmsg" data-for="email">Please check your email address.</div></div>
+          <div class="field"><label for="city">City</label><input id="city" name="city" type="text" placeholder="City / area"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="ptype">Project type</label><select id="ptype" name="ptype">
+            <option value="Concrete privacy fence">Concrete privacy fence</option>
+            <option value="Hybrid fence">Hybrid fence</option>
+            <option value="Rail fence">Rail fence</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select></div>
+          <div class="field"><label for="length">Approx. length (ft)</label><input id="length" name="length" type="number" min="0" inputmode="numeric" placeholder="e.g. 150"></div>
+        </div>
+        <div class="field"><label for="msg">Project details</label><textarea id="msg" name="msg" placeholder="Tell us a bit about your property and what you're looking for."></textarea></div>
+        <button class="btn btn-primary" type="submit">Get my free quote</button>
+        <p class="finehint">No spam, no pressure. Just a real quote.</p>
+      </div>
+      <div class="success" role="status" aria-live="polite">
+        <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5V6z"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg></div>
+        <h3 class="success-name">Thank you!</h3>
+        <p>We've received your request and will reach out within one business day. Need us sooner? Call <a class="gold" href="tel:+13856006240">(385) 600-6240</a>.</p>
+      </div>
+    </form>
+  </div>
+</div></section>
+</div><!-- /contact -->
+
+<!-- ===================== DISTRIBUTOR ===================== -->
+<div class="page" data-route="/distributor">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">Partners</p>
+  <h1>Partner with Petrified.</h1>
+  <p class="lead">Add wood-grain concrete fencing to your portfolio. We work with established installers, landscapers, hardscapers, and distributors across Utah and Idaho, and we're expanding. Tell us about your business, or email <a class="gold" href="mailto:landen@petrifiedfence.com">landen@petrifiedfence.com</a>.</p>
+</div></section>
+
+<section class="sect" style="padding-top:clamp(28px,4vw,44px)"><div class="wrap">
+  <div class="qgrid">
+    <div class="pitch reveal">
+      <div class="callbox">
+        <span>Talk to our team</span>
+        <a href="tel:+13856006240">(385) 600-6240</a>
+      </div>
+      <ul class="qcheck">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> A premium product backed by a limited lifetime warranty</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Territory and partner-support opportunities</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Marketing and product support</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><polyline points="4 12 10 18 20 6"/></svg> Non-combustible and storm-rated, a strong story to sell</li>
+      </ul>
+      <p style="margin-top:24px; font-size:14px; color:var(--ink-subtle)">Just want a fence for your property? <a class="gold" href="#/contact">Get a free quote</a>.</p>
+    </div>
+    <form class="card reveal qform" novalidate>
+      <div class="form-fields">
+        <div class="row2">
+          <div class="field"><label for="d-name">Name <span class="req">*</span></label><input id="d-name" name="name" type="text" autocomplete="name" placeholder="Your name" required><div class="errmsg" data-for="name">Please enter your name.</div></div>
+          <div class="field"><label for="d-company">Company <span class="req">*</span></label><input id="d-company" name="company" type="text" autocomplete="organization" placeholder="Company name" required><div class="errmsg" data-for="company">Please enter your company.</div></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="d-email">Email <span class="req">*</span></label><input id="d-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required><div class="errmsg" data-for="email">Please enter a valid email.</div></div>
+          <div class="field"><label for="d-phone">Phone</label><input id="d-phone" name="phone" type="tel" autocomplete="tel" placeholder="(000) 000-0000"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="d-region">Region / territory</label><input id="d-region" name="region" type="text" placeholder="State or metro area"></div>
+          <div class="field"><label for="d-biz">Business type</label><select id="d-biz" name="biz">
+            <option value="Fencing contractor">Fencing contractor</option>
+            <option value="Landscaper / hardscaper">Landscaper / hardscaper</option>
+            <option value="Builder / developer">Builder / developer</option>
+            <option value="Retailer / dealer">Retailer / dealer</option>
+            <option value="Other">Other</option>
+          </select></div>
+        </div>
+        <div class="field"><label for="d-web">Website</label><input id="d-web" name="website" type="text" placeholder="yourcompany.com"></div>
+        <div class="field"><label for="d-msg">Tell us about your business</label><textarea id="d-msg" name="msg" placeholder="Your markets, experience, and why you're interested in Petrified Fence."></textarea></div>
+        <button class="btn btn-primary" type="submit">Submit partner inquiry</button>
+        <p class="finehint">We'll review and reach out within a few business days.</p>
+      </div>
+      <div class="success" role="status" aria-live="polite">
+        <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5V6z"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg></div>
+        <h3 class="success-name">Thank you!</h3>
+        <p>Thanks for your interest in partnering with Petrified Fence. Our team will review your details and reach out soon.</p>
+      </div>
+    </form>
+  </div>
+</div></section>
+</div><!-- /distributor -->
+
+<!-- ===================== FAQ ===================== -->
+<div class="page" data-route="/faq">
+<section class="phead"><div class="wrap reveal">
+  <p class="eyebrow">FAQ</p>
+  <h1>Questions, answered.</h1>
+  <p class="lead">The things homeowners ask before they build. Still curious? Call (385) 600-6240 or <a class="gold" href="#/contact">get a free quote</a>.</p>
+</div></section>
+
+<section class="sect" style="padding-top:clamp(28px,4vw,44px)"><div class="wrap">
+  <div class="faq reveal">
+    <details class="faq-item"><summary>How much does a Petrified fence cost? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Fences are priced by the linear foot and depend on the style you choose, the number of corners, and freight to your site. As a rough guide, our privacy fence typically runs $88 to $104 per linear foot installed. Every quote is free and specific to your property. <a href="#/contact">Get a free quote</a>.</div></details>
+    <details class="faq-item"><summary>Is it really concrete? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Yes. Every panel is solid concrete, stamped with a real wood-grain texture and hand-stained. It only looks like wood.</div></details>
+    <details class="faq-item"><summary>Will it really look like wood? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">From the street, most people assume it is a premium wood fence. The grain, knots, and board lines are pulled from real timber. Up close, it has the weight and permanence of stone.</div></details>
+    <details class="faq-item"><summary>Does it need any maintenance? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">A little. Concrete won't rot, warp, or burn, but to keep your limited lifetime warranty in force the fence should be resealed by Petrified or an approved installation partner every two years. Between reseals, an occasional rinse is all it takes.</div></details>
+    <details class="faq-item"><summary>Is it fire resistant? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Concrete is non-combustible, so unlike wood or vinyl it does not burn. It is a strong choice in wildfire-prone areas.</div></details>
+    <details class="faq-item"><summary>How does it hold up in wind and storms? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">With proper installation it is engineered to stand through 115 mph wind.</div></details>
+    <details class="faq-item"><summary>Is it a better value than a wood fence? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Up front it costs more than a wood fence. Over time it can cost less, because you're not replacing rotted or storm-damaged boards. Ask us for a project-specific quote.</div></details>
+    <details class="faq-item"><summary>What areas do you serve? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">We currently serve projects throughout Utah and Idaho, and we're seeking installation and distribution partners in surrounding states. Outside Utah or Idaho? Contact us to check availability.</div></details>
+    <details class="faq-item"><summary>Are you a manufacturer or an installer? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">We manufacture the concrete fencing and work directly with homeowners on quotes and planning. Installation is handled by our team or an established local partner, depending on your project and location.</div></details>
+    <details class="faq-item"><summary>How do I get started? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Request a free quote or call (385) 600-6240. We'll talk through your project, measure where possible, and prepare a tailored quote.</div></details>
+    <details class="faq-item"><summary>How long does installation take? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Most residential projects install in a few days, depending on the length and your site. We give you a timeline with your quote.</div></details>
+    <details class="faq-item"><summary>Can it follow a slope or uneven ground? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Yes. Our panel-and-post system steps to follow the grade of your property.</div></details>
+    <details class="faq-item"><summary>What finishes are available? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Four wood-tone finishes: Mahogany, Redwood, Hickory, and Driftwood, from warm red-browns to a weathered grey.</div></details>
+    <details class="faq-item"><summary>Do you offer gates? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Not at this time. We focus on premium concrete fence panels, posts, and rails.</div></details>
+    <details class="faq-item"><summary>What does the warranty cover? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Every Petrified fence is backed by a limited lifetime warranty. We will go over the full written terms with your quote.</div></details>
+    <details class="faq-item"><summary>Will it pass my HOA? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Often, yes, and we are happy to provide product specs and photos to include in your HOA submission.</div></details>
+    <details class="faq-item"><summary>Is it eco-friendly? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">It uses no cut lumber and needs no chemical stains or sealers over its life, so there is nothing to reapply and nothing to send to a landfill in a few years.</div></details>
+    <details class="faq-item"><summary>How do I get started? <svg class="fq-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary><div class="fq-a">Request a free quote or call (385) 600-6240. We will visit, measure, and give you a no-pressure estimate, usually within one business day. <a href="#/contact">Get a free quote</a>.</div></details>
+  </div>
+</div></section>
+
+<section class="sect cta-band">
+  <div class="bg" aria-hidden="true"><img src="assets/detail.jpg" alt=""></div>
+  <div class="wrap reveal">
+    <p class="eyebrow">Still have a question?</p>
+    <h2 style="font-size:clamp(32px,5vw,54px); margin-top:14px">We're happy to help.</h2>
+    <p class="lead">Get a free, no-pressure estimate, or call and talk to a real person today.</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:30px">
+      <a class="btn btn-primary" href="#/contact">Get a free quote <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+13856006240">(385) 600-6240</a>
+    </div>
+  </div>
+</section>
+</div><!-- /faq -->
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div class="logo">
+        <img src="assets/logo-green.svg" alt="Petrified Fence">
+        <p class="tag">Concrete fencing with the beauty of real wood, and the strength of stone.</p>
+      </div>
+      <div class="fnav">
+        <div>
+          <h4>Explore</h4>
+          <a href="#/solutions">Solutions</a><a href="#/gallery">Gallery</a><a href="#/about">About</a><a href="#/faq">FAQ</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="tel:+13856006240">(385) 600-6240</a><a href="mailto:landen@petrifiedfence.com">landen@petrifiedfence.com</a><a href="#/contact">Free quote</a><a href="#/distributor">For professionals</a>
+        </div>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Petrified Fence. All rights reserved.</span>
+      <span>The beauty of wood. The strength of stone.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mobar">
+  <a class="btn btn-ghost" href="tel:+13856006240">Call</a>
+  <a class="btn btn-primary" href="#/contact">Free quote</a>
+</div>
+
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="15 6 9 12 15 18"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square"><polyline points="9 6 15 12 9 18"/></svg></button>
+</div>
+
+<script>
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header shadow on scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 12); };
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Reveal on scroll (works across pages as they are shown)
+  var revs = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    revs.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var group = e.target.parentElement ? Array.prototype.indexOf.call(e.target.parentElement.children, e.target) : 0;
+          e.target.style.transitionDelay = Math.min(group, 4) * 70 + 'ms';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revs.forEach(function (el) { io.observe(el); });
+  }
+
+  // Horizontal work gallery (home)
+  var workApi = null;
+  (function () {
+    var scroller = document.getElementById('workScroller');
+    if (!scroller) return;
+    var slides = scroller.querySelectorAll('.work-slide');
+    var total = slides.length;
+    var idxEl = document.getElementById('workIdx');
+    var totEl = document.getElementById('workTot');
+    var bar = document.getElementById('workBar');
+    var prev = document.getElementById('workPrev');
+    var next = document.getElementById('workNext');
+    var pad2 = function (n) { return ('0' + n).slice(-2); };
+    totEl.textContent = pad2(total);
+    function step() { return slides[0].offsetWidth + 20; }
+    function update() {
+      var i = Math.max(0, Math.min(total - 1, Math.round(scroller.scrollLeft / step())));
+      idxEl.textContent = pad2(i + 1);
+      bar.style.width = ((i + 1) / total * 100) + '%';
+      prev.disabled = i <= 0;
+      next.disabled = i >= total - 1;
+    }
+    function nextSlide() {
+      var i = Math.round(scroller.scrollLeft / step());
+      if (i >= total - 1) scroller.scrollTo({ left: 0, behavior: 'smooth' });
+      else scroller.scrollBy({ left: step(), behavior: 'smooth' });
+    }
+    prev.addEventListener('click', function () { scroller.scrollBy({ left: -step(), behavior: 'smooth' }); resetAuto(); });
+    next.addEventListener('click', function () { nextSlide(); resetAuto(); });
+    var t;
+    scroller.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(update, 60); }, { passive: true });
+    window.addEventListener('resize', update);
+
+    var timer = null;
+    function play() { if (reduce || timer) return; timer = setInterval(nextSlide, 4500); }
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
+    function resetAuto() { pause(); play(); }
+    var section = document.getElementById('projects');
+    section.addEventListener('mouseenter', pause);
+    section.addEventListener('mouseleave', play);
+    section.addEventListener('touchstart', pause, { passive: true });
+    section.addEventListener('focusin', pause);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) { pause(); } else { play(); } });
+    update();
+    workApi = { update: update, play: play, pause: pause };
+  })();
+
+  // Forms (quote + distributor): validation + success, front-end only for this prototype
+  (function () {
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function wire(form) {
+      var controls = Array.prototype.slice.call(form.querySelectorAll('input, select, textarea'));
+      function setErr(c, on) {
+        c.classList.toggle('err', on);
+        var m = form.querySelector('.errmsg[data-for="' + c.name + '"]');
+        if (m) m.classList.toggle('show', on);
+      }
+      controls.forEach(function (c) { c.addEventListener('input', function () { setErr(c, false); }); });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var ok = true, firstBad = null;
+        controls.forEach(function (c) {
+          var val = (c.value || '').trim();
+          var bad = (c.hasAttribute('required') && !val) || (c.type === 'email' && val && !emailRe.test(val));
+          setErr(c, bad);
+          if (bad) { ok = false; if (!firstBad) firstBad = c; }
+        });
+        if (!ok) { if (firstBad) firstBad.focus(); return; }
+        var nameEl = form.querySelector('[name="name"]');
+        var first = nameEl && nameEl.value.trim() ? nameEl.value.trim().split(' ')[0] : 'there';
+        var nm = form.querySelector('.success-name'); if (nm) nm.textContent = 'Thank you, ' + first + '!';
+        var ff = form.querySelector('.form-fields'); if (ff) ff.style.display = 'none';
+        var sc = form.querySelector('.success'); if (sc) sc.classList.add('show');
+      });
+    }
+    Array.prototype.slice.call(document.querySelectorAll('.qform')).forEach(wire);
+  })();
+
+  // Lightbox (gallery)
+  (function () {
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lbImg');
+    var imgs = Array.prototype.slice.call(document.querySelectorAll('.gal img'));
+    if (!imgs.length) return;
+    var idx = 0;
+    function open(i) { idx = (i + imgs.length) % imgs.length; lbImg.src = imgs[idx].src; lbImg.alt = imgs[idx].alt; lb.classList.add('open'); }
+    function close() { lb.classList.remove('open'); lbImg.src = ''; }
+    imgs.forEach(function (im, i) { im.addEventListener('click', function () { open(i); }); });
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function () { open(idx - 1); });
+    document.getElementById('lbNext').addEventListener('click', function () { open(idx + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') open(idx - 1);
+      else if (e.key === 'ArrowRight') open(idx + 1);
+    });
+  })();
+
+  // Mobile menu drawer
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    var backdrop = document.getElementById('mmBackdrop');
+    var closeBtn = document.getElementById('mmClose');
+    if (!toggle || !menu) return;
+    function openMenu() { menu.classList.add('open'); backdrop.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { menu.classList.remove('open'); backdrop.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+    toggle.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+    window.__closeMenu = closeMenu;
+  })();
+
+  // Hash router
+  (function () {
+    var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+    var navlinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+    function showRoute(path) {
+      var matched = false;
+      pages.forEach(function (p) {
+        var on = p.getAttribute('data-route') === path;
+        p.classList.toggle('active', on);
+        if (on) matched = true;
+      });
+      if (!matched) {
+        document.querySelector('.page[data-route="/"]').classList.add('active');
+        path = '/';
+      }
+      navlinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('data-nav') === path); });
+      if (workApi) { if (path === '/') { workApi.update(); workApi.play(); } else { workApi.pause(); } }
+    }
+    function handleHash() {
+      if (window.__closeMenu) { window.__closeMenu(); }
+      var h = location.hash.replace(/^#/, '');
+      if (h && h.charAt(0) !== '/') {
+        showRoute('/');
+        var el = document.getElementById(h);
+        if (el) { requestAnimationFrame(function () { el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }); }
+        return;
+      }
+      showRoute(h || '/');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+  })();
+</script>
+
+</body>
+</html>

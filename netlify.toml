@@ -1,0 +1,8 @@
+# Petrified Fence - static site, no build step.
+# Netlify publishes the repo root as-is. The site is a single index.html
+# with hash-based routing (#/solutions, #/gallery, etc.), so no redirect
+# rules are needed.
+
+[build]
+  publish = "."
+  command = ""
