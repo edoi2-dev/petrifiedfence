@@ -827,28 +827,31 @@
       </ul>
       <p style="margin-top:24px; font-size:14px; color:var(--ink-subtle)">Are you an installer, landscaper, or distributor? <a class="gold" href="#/distributor">Partner with Petrified</a>.</p>
     </div>
-    <form class="card reveal qform" novalidate>
+    <form class="card reveal qform" novalidate data-hs="contact">
       <div class="form-fields">
         <div class="row2">
-          <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required><div class="errmsg" data-for="name">Please enter your name.</div></div>
+          <div class="field"><label for="firstname">First name <span class="req">*</span></label><input id="firstname" name="firstname" type="text" autocomplete="given-name" placeholder="First name" required><div class="errmsg" data-for="firstname">Please enter your first name.</div></div>
+          <div class="field"><label for="lastname">Last name <span class="req">*</span></label><input id="lastname" name="lastname" type="text" autocomplete="family-name" placeholder="Last name" required><div class="errmsg" data-for="lastname">Please enter your last name.</div></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required><div class="errmsg" data-for="email">Please check your email address.</div></div>
           <div class="field"><label for="phone">Phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(385) 000-0000" required><div class="errmsg" data-for="phone">Please enter a phone number.</div></div>
         </div>
         <div class="row2">
-          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com"><div class="errmsg" data-for="email">Please check your email address.</div></div>
-          <div class="field"><label for="city">City</label><input id="city" name="city" type="text" placeholder="City / area"></div>
-        </div>
-        <div class="row2">
-          <div class="field"><label for="ptype">Project type</label><select id="ptype" name="ptype">
-            <option value="Concrete privacy fence">Concrete privacy fence</option>
-            <option value="Hybrid fence">Hybrid fence</option>
-            <option value="Rail fence">Rail fence</option>
-            <option value="Not sure yet">Not sure yet</option>
-          </select></div>
+          <div class="field"><label for="city">City</label><input id="city" name="city" type="text" autocomplete="address-level2" placeholder="City / area"></div>
           <div class="field"><label for="length">Approx. length (ft)</label><input id="length" name="length" type="number" min="0" inputmode="numeric" placeholder="e.g. 150"></div>
         </div>
+        <div class="field"><label for="ptype">Project type</label><select id="ptype" name="ptype">
+          <option value="Concrete privacy fence">Concrete privacy fence</option>
+          <option value="Hybrid fence">Hybrid fence</option>
+          <option value="Rail fence">Rail fence</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select></div>
         <div class="field"><label for="msg">Project details</label><textarea id="msg" name="msg" placeholder="Tell us a bit about your property and what you're looking for."></textarea></div>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Do not fill this in<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
         <button class="btn btn-primary" type="submit">Get my free quote</button>
         <p class="finehint">No spam, no pressure. Just a real quote.</p>
+        <p class="finehint formerr" style="display:none;color:#e0948a;margin-top:10px"></p>
       </div>
       <div class="success" role="status" aria-live="polite">
         <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9.5-4-2-7-5-7-9.5V6z"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg></div>
@@ -1075,9 +1078,48 @@
     workApi = { update: update, play: play, pause: pause };
   })();
 
-  // Forms (quote + distributor): validation + success, front-end only for this prototype
+  // Forms: client-side validation + success. Contact form (data-hs="contact")
+  // submits to HubSpot's Forms API; distributor form is still front-end only
+  // until its own HubSpot form exists.
   (function () {
     var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var HS_PORTAL = '246760142';
+    var HS_CONTACT_FORM = '05512fe2-78e0-4292-a5de-f93756b48c55';
+    function submitHubSpot(form, onDone) {
+      var get = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? (el.value || '').trim() : ''; };
+      if (get('company_website')) { onDone(); return; } // honeypot: silently drop bots
+      var details = get('msg'), extra = [];
+      if (get('ptype')) extra.push('Project type: ' + get('ptype'));
+      if (get('length')) extra.push('Approx. length: ' + get('length') + ' ft');
+      var message = details;
+      if (extra.length) message = (details ? details + '\n\n' : '') + extra.join('. ') + '.';
+      if (!message) message = 'Quote request from the website.';
+      var fields = [
+        { name: 'firstname', value: get('firstname') },
+        { name: 'lastname', value: get('lastname') },
+        { name: 'email', value: get('email') },
+        { name: 'phone', value: get('phone') },
+        { name: 'contact_type', value: 'Customer' },
+        { name: 'message', value: message }
+      ];
+      if (get('city')) fields.push({ name: 'city', value: get('city') });
+      var ctx = { pageUri: location.href, pageName: document.title };
+      var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
+      if (hutk) ctx.hutk = hutk;
+      var btn = form.querySelector('button[type="submit"]'), label = btn ? btn.textContent : '';
+      var errEl = form.querySelector('.formerr');
+      if (errEl) errEl.style.display = 'none';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+      function fail(msg) {
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+        if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+      }
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + HS_CONTACT_FORM, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields: fields, context: ctx })
+      }).then(function (r) { return r.ok ? onDone() : fail('Sorry, we could not send your request. Please call (385) 600-6240 or email landen@petrifiedfence.com.'); })
+        .catch(function () { fail('Network error. Please call (385) 600-6240 or email landen@petrifiedfence.com.'); });
+    }
     function wire(form) {
       var controls = Array.prototype.slice.call(form.querySelectorAll('input, select, textarea'));
       function setErr(c, on) {
@@ -1096,11 +1138,15 @@
           if (bad) { ok = false; if (!firstBad) firstBad = c; }
         });
         if (!ok) { if (firstBad) firstBad.focus(); return; }
-        var nameEl = form.querySelector('[name="name"]');
-        var first = nameEl && nameEl.value.trim() ? nameEl.value.trim().split(' ')[0] : 'there';
-        var nm = form.querySelector('.success-name'); if (nm) nm.textContent = 'Thank you, ' + first + '!';
-        var ff = form.querySelector('.form-fields'); if (ff) ff.style.display = 'none';
-        var sc = form.querySelector('.success'); if (sc) sc.classList.add('show');
+        var fn = form.querySelector('[name="firstname"]'), nmEl = form.querySelector('[name="name"]');
+        var first = (fn && fn.value.trim()) ? fn.value.trim() : (nmEl && nmEl.value.trim() ? nmEl.value.trim().split(' ')[0] : 'there');
+        function showSuccess() {
+          var nm = form.querySelector('.success-name'); if (nm) nm.textContent = 'Thank you, ' + first + '!';
+          var ff = form.querySelector('.form-fields'); if (ff) ff.style.display = 'none';
+          var sc = form.querySelector('.success'); if (sc) sc.classList.add('show');
+        }
+        if (form.getAttribute('data-hs') === 'contact') { submitHubSpot(form, showSuccess); }
+        else { showSuccess(); }
       });
     }
     Array.prototype.slice.call(document.querySelectorAll('.qform')).forEach(wire);
